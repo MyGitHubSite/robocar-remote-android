@@ -5,9 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
+// TODO: Add 2 page onboarding
+// 1) enable bt
+// 2) select bt device
+// TODO: Test multi-touch on device
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,5 +48,12 @@ class MainActivity : AppCompatActivity() {
             Log.d("MainActivity", y.toString())
             return@setOnTouchListener true
         })
+
+        if (!BtClient.supportsBluetooth()) {
+            makeText(this, "Device do not support Bluetooth, exiting...",LENGTH_SHORT).show()
+            return finish()
+        }
+
+        val btc = BtClient()
     }
 }
